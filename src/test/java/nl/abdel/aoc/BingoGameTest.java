@@ -35,6 +35,21 @@ class BingoGameTest {
              2  0 12  3  7
             """;
 
+    private static final String EDGE_CASE_IRREGULAR_GRIDS = """
+            8,3,23,14,21,16,12,6
+                        
+            22  0
+             8  2 23  4
+            21 14  7
+             6 10  3 18  5
+                        
+             3 15  0  2 22
+             9 18 13 17  5
+            8  7 25 23
+            20 11 10
+            14 21 16 12  6
+            """;
+
     private static String puzzleGame;
 
     @BeforeEach
@@ -126,7 +141,7 @@ class BingoGameTest {
         var expectedScore = 6256;
         var bingoGame = new BingoGame(puzzleGame);
 
-        while (bingoGame.numbersLeft() > 0) {
+        while (numberOfPlayersWithBingo(bingoGame) < bingoGame.getNumberOfPlayers() - 1) {
             bingoGame.drawNumber();
             if (numberOfPlayersWithBingo(bingoGame) == bingoGame.getNumberOfPlayers() - 1) {
                 var losingBoard = findLosingBoard(bingoGame);
@@ -152,6 +167,19 @@ class BingoGameTest {
         }
 
         assertTrue(bingoGame.getWinningBoard().isPresent());
+    }
+
+    @Test
+    void shouldWorkWithIrregularGrids() {
+        var expectedScore = 1044;
+        var bingoGame = new BingoGame(EDGE_CASE_IRREGULAR_GRIDS);
+
+        while (!bingoGame.isFinished()) {
+            bingoGame.drawNumber();
+        }
+
+        var winningBoard = bingoGame.getWinningBoard().get();
+        assertEquals(expectedScore, winningBoard.getScore());
     }
 
     private static int numberOfPlayersWithBingo(BingoGame bingoGame) {

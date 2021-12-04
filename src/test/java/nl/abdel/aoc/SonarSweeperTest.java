@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SonarSweeperTest {
 
-    private SonarSweeper sonarSweeper = new SonarSweeper();
+    private final SonarSweeper sonarSweeper = new SonarSweeper();
 
     private static int[] puzzleInput;
 
@@ -43,6 +43,7 @@ class SonarSweeperTest {
                 Arguments.of(new int[]{ 199, 200, 208, 210, 200, 207, 240, 269, 260, 263 }, 7),
                 Arguments.of(new int[]{ }, 0),
                 Arguments.of(new int[]{ 199 }, 0),
+                Arguments.of(new int[]{ 199, 199 }, 0),
                 Arguments.of(puzzleInput, 1292)
         );
     }
@@ -51,6 +52,7 @@ class SonarSweeperTest {
         return Stream.of(
                 Arguments.of(new int[]{ 199, 200, 208, 210, 200, 207, 240, 269, 260, 263 }, 5),
                 Arguments.of(new int[]{ }, 0),
+                Arguments.of(new int[]{ 199, 200 }, 0),
                 Arguments.of(new int[]{ 199, 200, 208 }, 0),
                 Arguments.of(new int[]{ 199, 200, 208, 210 }, 1),
                 Arguments.of(puzzleInput, 1262)

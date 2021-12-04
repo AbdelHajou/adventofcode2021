@@ -88,7 +88,7 @@ class SubmarineTest {
             assertEquals(expectedDepth, defaultSubmarine.getDepth());
             var actualProduct = defaultSubmarine.getPosition() * defaultSubmarine.getDepth();
             assertEquals(expectedProduct, actualProduct);
-            System.out.println("Day 2 puzzle one solution: " + actualProduct);
+            System.out.println("Day two part one solution: " + actualProduct);
         }
     }
 
@@ -173,7 +173,7 @@ class SubmarineTest {
             assertEquals(expectedAim, aimingSubmarine.getAim());
             var actualProduct = aimingSubmarine.getPosition() * aimingSubmarine.getDepth();
             assertEquals(expectedProduct, actualProduct);
-            System.out.println("Day 2 puzzle two solution: " + actualProduct);
+            System.out.println("Day two part two solution: " + actualProduct);
         }
     }
 }

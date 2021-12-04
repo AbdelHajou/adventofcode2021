@@ -64,7 +64,6 @@ public class DiagnosticReport {
         StringBuilder gammaRateBits = new StringBuilder();
         Set<Integer> indices = bitOccurences.stream()
                 .map(bitOccurence -> bitOccurence.index)
-                .sorted(Comparator.comparingInt(index -> index))
                 .collect(Collectors.toCollection(LinkedHashSet::new));
         for (int index : indices) {
             char mostCommonBit = findCommonBitAtIndex(bitOccurences, index, BitCriteria.MOST_COMMON);
@@ -78,7 +77,6 @@ public class DiagnosticReport {
         StringBuilder epsilonRateBits = new StringBuilder();
         Set<Integer> indices = bitOccurences.stream()
                 .map(bitOccurence -> bitOccurence.index)
-                .sorted(Comparator.comparingInt(index -> index))
                 .collect(Collectors.toCollection(LinkedHashSet::new));
         for (int index : indices) {
             char leastCommonBit = findCommonBitAtIndex(bitOccurences, index, BitCriteria.LEAST_COMMON);
@@ -100,7 +98,7 @@ public class DiagnosticReport {
         char mostCommonBit = findCommonBitAtIndex(calculateBitOccurrences(binaryNumbers), index, BitCriteria.MOST_COMMON, ONE_BIT);
 
         LinkedList<String> numbersMatchingCriteria = binaryNumbers.stream()
-                .filter(binaryNumber -> binaryNumber.length() > index && binaryNumber.charAt(index) == mostCommonBit)
+                .filter(binaryNumber -> binaryNumber.charAt(index) == mostCommonBit)
                 .collect(Collectors.toCollection(LinkedList::new));
 
         if (numbersMatchingCriteria.size() == 1) {
@@ -118,7 +116,7 @@ public class DiagnosticReport {
         char leastCommonBit = findCommonBitAtIndex(calculateBitOccurrences(binaryNumbers), index, BitCriteria.LEAST_COMMON, ZERO_BIT);
 
         LinkedList<String> numbersMatchingCriteria = binaryNumbers.stream()
-                .filter(binaryNumber -> binaryNumber.length() > index && binaryNumber.charAt(index) == leastCommonBit)
+                .filter(binaryNumber -> binaryNumber.charAt(index) == leastCommonBit)
                 .collect(Collectors.toCollection(LinkedList::new));
 
         if (numbersMatchingCriteria.size() == 1) {

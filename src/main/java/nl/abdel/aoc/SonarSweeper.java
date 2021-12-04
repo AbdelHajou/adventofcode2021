@@ -6,11 +6,11 @@ package nl.abdel.aoc;
 public class SonarSweeper {
 
     public int countDepthMeasurementIncrements(int[] depthMeasurements) {
-        if (depthMeasurements.length <= 1) return 0;
+        if (depthMeasurements.length == 0) return 0;
 
         int increments = 0;
-        for (int i = 1; i < depthMeasurements.length; i++) {
-            if (depthMeasurements[i] > depthMeasurements[i - 1]) {
+        for (int i = 0; i < depthMeasurements.length - 1; i++) {
+            if (depthMeasurements[i + 1] > depthMeasurements[i]) {
                 increments++;
             }
         }
@@ -19,8 +19,6 @@ public class SonarSweeper {
     }
 
     public int countSlidingWindowIncrements(int[] depthMeasurements, int windowSize) {
-        if (depthMeasurements.length <= windowSize) return 0;
-
         int leftWindowSum = 0;
         int rightWindowSum = 0;
         int increments = 0;

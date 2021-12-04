@@ -1,7 +1,6 @@
 package nl.abdel.aoc;
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +11,7 @@ public class BingoGame {
     private LinkedList<Integer> luckyNumbers = new LinkedList<>();
     private final List<BingoBoard> boards = new LinkedList<>();
 
-    private int currentLuckyNumberIndex;
+    private int nextLuckyNumberIndex;
 
     public BingoGame(String numbers) {
         List<String> numberParts = Arrays.asList(numbers.split("\n\n"));
@@ -35,14 +34,14 @@ public class BingoGame {
 
     public void drawNumber() {
         for (BingoBoard board : boards) {
-            board.drawNumber(luckyNumbers.get(currentLuckyNumberIndex));
+            board.drawNumber(luckyNumbers.get(nextLuckyNumberIndex));
         }
 
-        currentLuckyNumberIndex++;
+        nextLuckyNumberIndex++;
     }
 
     public boolean isFinished() {
-        return currentLuckyNumberIndex >= luckyNumbers.size() || boards.stream().anyMatch(BingoBoard::hasBingo);
+        return nextLuckyNumberIndex == luckyNumbers.size() || boards.stream().anyMatch(BingoBoard::hasBingo);
     }
 
     public int getNumberOfPlayers() {
@@ -57,10 +56,6 @@ public class BingoGame {
         }
 
         return Optional.empty();
-    }
-
-    public int numbersLeft() {
-        return luckyNumbers.size() - 1 - currentLuckyNumberIndex;
     }
 
     public static class BingoBoard {
@@ -89,12 +84,15 @@ public class BingoGame {
 
         public int[][] getNumbers() {
             int rows = numbers.size();
-            int columns = numbers.stream().max(Comparator.comparing(row -> row.size())).get().size();
-            int[][] numberGrid = new int[rows][columns];
+            int[][] numberGrid = new int[rows][];
+
             for (int row = 0; row < rows; row++) {
+                int columns = numbers.get(row).size();
+                int[] rowNumbers = new int[columns];
                 for (int column = 0; column < columns; column++) {
-                    numberGrid[row][column] = numbers.get(row).get(column);
+                    rowNumbers[column] = numbers.get(row).get(column);
                 }
+                numberGrid[row] = rowNumbers;
             }
 
             return numberGrid;
@@ -102,12 +100,15 @@ public class BingoGame {
 
         public boolean[][] getMarkedNumbers() {
             int rows = markedNumbers.size();
-            int columns = markedNumbers.stream().max(Comparator.comparing(row -> row.size())).get().size();
-            boolean[][] markedGrid = new boolean[rows][columns];
+            boolean[][] markedGrid = new boolean[rows][];
+
             for (int row = 0; row < rows; row++) {
+                int columns = markedNumbers.get(row).size();
+                boolean[] rowNumbers = new boolean[columns];
                 for (int column = 0; column < columns; column++) {
-                    markedGrid[row][column] = markedNumbers.get(row).get(column);
+                    rowNumbers[column] = markedNumbers.get(row).get(column);
                 }
+                markedGrid[row] = rowNumbers;
             }
 
             return markedGrid;
@@ -119,7 +120,7 @@ public class BingoGame {
                 if (rowIsMarked) return true;
                 for (int column = 0; column < numbers.get(row).size(); column++) {
                     int finalColumn = column;
-                    boolean columnIsMarked = markedNumbers.stream().allMatch(markedRow -> markedRow.get(finalColumn) == Boolean.TRUE);
+                    boolean columnIsMarked = markedNumbers.stream().allMatch(markedRow -> markedRow.size() <= finalColumn || markedRow.get(finalColumn) == Boolean.TRUE);
                     if (columnIsMarked) return true;
                 }
             }
@@ -132,7 +133,7 @@ public class BingoGame {
 
             int sumOfUnmarkedNumbers = 0;
             for (int row = 0; row < markedNumbers.size(); row++) {
-                for (int column = 0; column < markedNumbers.size(); column++) {
+                for (int column = 0; column < markedNumbers.get(row).size(); column++) {
                     if (markedNumbers.get(row).get(column) == Boolean.FALSE) {
                         sumOfUnmarkedNumbers += numbers.get(row).get(column);
                     }
