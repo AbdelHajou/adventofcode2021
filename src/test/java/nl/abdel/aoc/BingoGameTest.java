@@ -1,7 +1,7 @@
 package nl.abdel.aoc;
 
-import nl.abdel.aoc.helper.InputHelper;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+@Order(4)
 class BingoGameTest {
 
     private static final String EXAMPLE = """

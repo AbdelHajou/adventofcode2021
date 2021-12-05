@@ -1,4 +1,4 @@
-package nl.abdel.aoc.helper;
+package nl.abdel.aoc;
 
 import org.apache.commons.io.IOUtils;
 

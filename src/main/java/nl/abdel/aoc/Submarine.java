@@ -37,6 +37,8 @@ public class Submarine {
             case "up":
                 up(units);
                 break;
+            default:
+                break;
         }
     }
 

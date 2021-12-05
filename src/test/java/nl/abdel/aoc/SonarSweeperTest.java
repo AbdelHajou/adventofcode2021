@@ -1,7 +1,7 @@
 package nl.abdel.aoc;
 
-import nl.abdel.aoc.helper.InputHelper;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Order(1)
 class SonarSweeperTest {
 
     private final SonarSweeper sonarSweeper = new SonarSweeper();
@@ -28,6 +29,9 @@ class SonarSweeperTest {
         var actual = sonarSweeper.countDepthMeasurementIncrements(depthMeasurements);
 
         assertEquals(expected, actual);
+        if (depthMeasurements == puzzleInput) {
+            System.out.println("Day one part one solution: " + expected);
+        }
     }
 
     @ParameterizedTest
@@ -36,6 +40,9 @@ class SonarSweeperTest {
         var actual = sonarSweeper.countSlidingWindowIncrements(depthMeasurements, 3);
 
         assertEquals(expected, actual);
+        if (depthMeasurements == puzzleInput) {
+            System.out.println("Day one part two solution: " + expected);
+        }
     }
 
     private static Stream<Arguments> provideMeasurementsForPuzzleOne() {

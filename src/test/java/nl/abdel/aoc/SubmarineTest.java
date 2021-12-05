@@ -1,8 +1,8 @@
 package nl.abdel.aoc;
 
-import nl.abdel.aoc.helper.InputHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -10,6 +10,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Order(2)
 class SubmarineTest {
 
     private static List<String> puzzleInput;

@@ -1,13 +1,14 @@
 package nl.abdel.aoc;
 
-import nl.abdel.aoc.helper.InputHelper;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Order(3)
 class DiagnosticReportTest {
 
     private final String exampleReport = """
