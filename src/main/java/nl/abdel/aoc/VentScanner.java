@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class VentScanner {
-    private record Line(int x1, int y1, int x2, int y2) {}
 
     public int[][] scanLineSegments(String lineSegments, boolean includeDiagonalLines) {
         String[] segments = lineSegments.split("\n");
@@ -27,13 +26,11 @@ public class VentScanner {
     private void fillLine(int[][] diagram, Line line) {
         int x = line.x1;
         int y = line.y1;
-        do {
+        while (x != line.x2 || y != line.y2) {
             diagram[y][x]++;
-            if (x < line.x2) x++;
-            if (y < line.y2) y++;
-            if (x > line.x2) x--;
-            if (y > line.y2) y--;
-        } while (x != line.x2 || y != line.y2);
+            x += Comparator.comparingInt(Integer::intValue).compare(line.x2, x);
+            y += Comparator.comparingInt(Integer::intValue).compare(line.y2, y);
+        }
         diagram[y][x]++;
     }
 
@@ -49,14 +46,20 @@ public class VentScanner {
     }
 
     private int getDiagramWidth(List<Line> lines) {
-        return Math.max(
-                lines.stream().max(Comparator.comparingInt(line -> line.x1)).get().x1,
-                lines.stream().max(Comparator.comparingInt(line -> line.x2)).get().x2) + 1;
+        return lines.stream().max(Comparator.comparingInt(line -> line.maxX())).get().maxX() + 1;
     }
 
     private int getDiagramHeight(List<Line> lines) {
-        return Math.max(
-                lines.stream().max(Comparator.comparingInt(line -> line.y1)).get().y1,
-                lines.stream().max(Comparator.comparingInt(line -> line.y2)).get().y2) + 1;
+        return lines.stream().max(Comparator.comparingInt(line -> line.maxY())).get().maxY() + 1;
+    }
+
+    private record Line(int x1, int y1, int x2, int y2) {
+        int maxX() {
+            return Math.max(x1, x2);
+        }
+
+        int maxY() {
+            return Math.max(y1, y2);
+        }
     }
 }
