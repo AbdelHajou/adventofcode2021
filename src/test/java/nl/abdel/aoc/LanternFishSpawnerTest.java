@@ -92,6 +92,12 @@ class LanternFishSpawnerTest {
         System.out.println("Day six part two solution: " + expectedNumberOfFish);
     }
 
+    @Test
+    void shouldReturnZeroFishForHighNumberOfDaysLeft() {
+        assertEquals(0, spawner.getFishPerDaysLeft(9));
+        assertEquals(0, spawner.getFishPerDaysLeft(1000));
+    }
+
     private void assertTimers(int[] expectedTimes) {
         long[] fishPerDaysLeft = new long[9];
         for (int expectedTime : expectedTimes) {
