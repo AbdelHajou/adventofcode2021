@@ -58,8 +58,3 @@ public class SubmarineFleet {
         return totalFuel;
     }
 }
-
-enum EngineType {
-    OLD,
-    IMPROVED
-}
