@@ -23,6 +23,10 @@ public class Submarine {
     }
 
     public void command(String command) {
+        if (command == null) {
+            throw new IllegalArgumentException("Command cannot be null.");
+        }
+
         String[] commandParts = command.split(" ");
         String direction = commandParts[0];
         int units = Integer.parseInt(commandParts[1]);

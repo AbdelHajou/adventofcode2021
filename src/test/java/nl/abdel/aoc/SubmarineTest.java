@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Order(2)
 class SubmarineTest {
@@ -90,6 +91,15 @@ class SubmarineTest {
             var actualProduct = defaultSubmarine.getPosition() * defaultSubmarine.getDepth();
             assertEquals(expectedProduct, actualProduct);
             System.out.println("Day two part one solution: " + actualProduct);
+        }
+
+        @Test
+        void shouldHandleNullCorrectly() {
+            var expectedException = IllegalArgumentException.class;
+
+            assertThrows(expectedException, () -> {
+                defaultSubmarine.command(null);
+            });
         }
     }
 
